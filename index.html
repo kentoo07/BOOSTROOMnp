@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOOSTROOM NP - MLBB Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* --- Global Styles --- */
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: url('https://i.ibb.co/0Q7t8rD/mlbb-interface-bg.jpg') center/cover no-repeat fixed;
+      color: #fff;
+      position: relative;
+    }
+    /* Animated overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+      box-shadow: 0 0 50px #ff4c4c, 0 0 100px #ffd700;
+      animation: pulseGlow 4s infinite alternate;
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 30px #ff4c4c, 0 0 60px #ffd700; }
+      50% { box-shadow: 0 0 50px #ff4c4c, 0 0 100px #ffd700; }
+      100% { box-shadow: 0 0 30px #ff4c4c, 0 0 60px #ffd700; }
+    }
+
+    /* --- Header & Nav --- */
+    header {
+      background: #1a1a1a;
+      color: #ff4c4c;
+      padding: 20px;
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    nav {
+      background: #222;
+      padding: 12px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 0 10px #ff4c4c, 0 0 20px #ffd700;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    nav a {
+      color: #ff4c4c;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 18px;
+      transition: 0.3s, text-shadow 0.3s;
+    }
+    nav a:hover {
+      color: #ffd700;
+      text-shadow: 0 0 10px #ffd700, 0 0 20px #ff4c4c;
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      padding: 60px;
+      text-align: center;
+      color: #fff;
+    }
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+      color: #ff4c4c;
+      text-shadow: 2px 2px 10px #000, 0 0 20px #ffd700;
+    }
+    .hero p {
+      font-size: 20px;
+      color: #fff;
+      text-shadow: 1px 1px 5px #000, 0 0 10px #ffd700;
+    }
+
+    /* --- Sections --- */
+    .section {
+      padding: 40px;
+      background: #1a1a1a;
+      margin: 20px;
+      border-radius: 15px;
+    }
+    .section h2 {
+      color: #ffd700;
+      margin-bottom: 20px;
+    }
+
+    /* --- Service Cards --- */
+    @keyframes pulseCard {
+      0% { box-shadow: 0 0 15px #ff4c4c, 0 0 25px #ffd700; }
+      50% { box-shadow: 0 0 25px #ff4c4c, 0 0 40px #ffd700; }
+      100% { box-shadow: 0 0 15px #ff4c4c, 0 0 25px #ffd700; }
+    }
+    .service-card {
+      background: #222;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: pulseCard 4s infinite alternate;
+    }
+    .service-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #ff4c4c, 0 0 50px #ffd700;
+    }
+    .service-card img {
+      width: 80px;
+      border-radius: 10px;
+    }
+    .service-card-content h3 {
+      margin: 0 0 10px 0;
+      color: #ff4c4c;
+    }
+    .service-card-content ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .service-card-content ul li {
+      margin-bottom: 5px;
+    }
+    .service-card-content button {
+      background: #ff4c4c;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+      transition: 0.3s, box-shadow 0.3s;
+    }
+    .service-card-content button:hover {
+      background: #ffd700;
+      color: #000;
+      box-shadow: 0 0 15px #ffd700, 0 0 25px #ff4c4c;
+    }
+
+    /* --- Testimonials --- */
+    .testimonial-slider {
+      position: relative;
+      overflow: hidden;
+      height: 150px;
+    }
+    .testimonial-card {
+      background: #222;
+      padding: 20px;
+      border-left: 4px solid #ff4c4c;
+      border-radius: 10px;
+      font-style: italic;
+      position: absolute;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out, transform 0.3s, box-shadow 0.3s;
+    }
+    .testimonial-card.active {
+      opacity: 1;
+      position: relative;
+    }
+    .testimonial-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 10px #ffd700, 0 0 20px #ff4c4c;
+    }
+    .testimonial-card h4 {
+      margin-top: 10px;
+      text-align: right;
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    /* --- Back to Top Button --- */
+    #backToTop {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      background: #ff4c4c;
+      color: #fff;
+      border: none;
+      padding: 15px 20px;
+      font-size: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.3s, box-shadow 0.3s;
+      animation: pulseCard 3s infinite alternate;
+    }
+    #backToTop:hover {
+      background: #ffd700;
+      color: #000;
+      box-shadow: 0 0 25px #ffd700, 0 0 50px #ff4c4c;
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: #111;
+      color: #aaa;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Header & Nav -->
+  <header>BOOSTROOM NP</header>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#services">ML Services</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Support</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero" id="home">
+    <h1>Boost Your MLBB Skills Legally!</h1>
+    <p>Professional coaching, training, and achievement guidance for Mobile Legends: Bang Bang.</p>
+  </div>
+
+  <!-- Services Section -->
+  <div class="section" id="services">
+    <h2>Our Services</h2>
+
+    <div class="service-card">
+      <img src="https://i.ibb.co/Fm2R9fJ/season-hero.png" alt="Mythic Training">
+      <div class="service-card-content">
+        <h3>MLBB Mythic Training Program</h3>
+        <ul>
+          <li>Quick Start</li>
+          <li>Guaranteed Learning</li>
+          <li>Fair Price</li>
+        </ul>
+        <button onclick="window.location.href='https://wa.me/977XXXXXXXXX?text=I%20want%20Mythic%20Training'">View Service</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <img src="https://i.ibb.co/0V7ZtBq/solo-hero.png" alt="Hero Training">
+      <div class="service-card-content">
+        <h3>MLBB Hero Training</h3>
+        <ul>
+          <li>Master specific heroes</li>
+          <li>Step-by-step guidance</li>
+          <li>Fair Price</li>
+        </ul>
+        <button onclick="window.location.href='https://wa.me/977XXXXXXXXX?text=I%20want%20Hero%20Training'">View Service</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <img src="https://i.ibb.co/XFvKQq6/hero-specific.png" alt="Gameplay Analysis">
+      <div class="service-card-content">
+        <h3>MLBB Gameplay Analysis</h3>
+        <ul>
+          <li>Review your matches</li>
+          <li>Identify mistakes & tips</li>
+          <li>Fair Price</li>
+        </ul>
+        <button onclick="window.location.href='https://wa.me/977XXXXXXXXX?text=I%20want%20Gameplay%20Analysis'">View Service</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <img src="https://i.ibb.co/yP0G9Lk/duo-hero.png" alt="Win Strategy">
+      <div class="service-card-content">
+        <h3>MLBB Win Strategy Session</h3>
+        <ul>
+          <li>Learn winning tactics</li>
+          <li>Rank strategy guidance</li>
+          <li>Fair Price</li>
+        </ul>
+        <button onclick="window.location.href='https://wa.me/977XXXXXXXXX?text=I%20want%20Win%20Strategy'">View Service</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <img src="https://i.ibb.co/jkY5LQH/mlbb3.jpg" alt="Account Setup">
+      <div class="service-card-content">
+        <h3>MLBB Account Setup</h3>
+        <ul>
+          <li>Optimize settings & builds</li>
+          <li>Improve controls & sensitivity</li>
+          <li>Fair Price</li>
+        </ul>
+        <button onclick="window.location.href='https://wa.me/977XXXXXXXXX?text=I%20want%20Account%20Setup'">View Service</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <img src="https://i.ibb.co/D9j6G6R/mlbb1.jpg" alt="Achievements Guide">
+      <div class="service-card-content">
+        <h3>MLBB Achievements Guide</h3>
+        <ul>
+          <li>Unlock achievements efficiently</li>
+          <li>Step-by-step tips</li>
+          <li>Fair Price</li>
+        </ul>
+        <button onclick="window.location.href='https://wa.me/977XXXXXXXXX?text=I%20want%20Achievements%20Guide'">View Service</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials Section -->
+  <div class="section" id="testimonials">
+    <h2>Testimonials</h2>
+    <div class="testimonial-slider">
+      <div class="testimonial-card active">
+        <p>"Thanks to BOOSTROOM NP coaching, I improved my MLBB gameplay and finally reached Mythic rank! Highly recommend their hero training sessions."</p>
+        <h4>- Ramesh K.</h4>
+      </div>
+      <div class="testimonial-card">
+        <p>"The gameplay analysis was amazing. They showed me mistakes I never realized and my win rate improved drastically."</p>
+        <h4>- Sita P.</h4>
+      </div>
+      <div class="testimonial-card">
+        <p>"Their achievement guide helped me unlock all the rewards quickly. Very safe and professional service."</p>
+        <h4>- Anil M.</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="section" id="contact">
+    <h2>Support</h2>
+    <p>Email: contact@boostroomnp.com</p>
+    <p>WhatsApp / Telegram: +977-XXXXXXXXX</p>
+    <p>Follow us on social media for updates.</p>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" title="Back to Top">↑</button>
+
+  <!-- Footer -->
+  <footer>© 2025 BOOSTROOM NP. All rights reserved.</footer>
+
+  <!-- --- Scripts --- -->
+  <script>
+    // Testimonials Carousel
+    const testimonials = document.querySelectorAll('.testimonial-card');
+    let index = 0;
+    function showTestimonial(i) {
+      testimonials.forEach((t, idx) => {
+        t.classList.remove('active');
+        if(idx === i) t.classList.add('active');
+      });
+    }
+    setInterval(() => {
+      index = (index + 1) % testimonials.length;
+      showTestimonial(index);
+    }, 4000);
+
+    // Back to Top button
+    const backToTop = document.getElementById('backToTop');
+    window.onscroll = function() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTop.style.display = "block";
+      } else {
+        backToTop.style.display = "none";
+      }
+    };
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
